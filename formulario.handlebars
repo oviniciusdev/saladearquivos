@@ -1,0 +1,39 @@
+<main>
+
+    {{!-- Formulario --}}
+    <div class="container">
+        <div class="row">
+            <div class="col-6 offset-3">
+                <form action="/registrar" method="post" enctype="multipart/form-data">
+                    <input type="text" name="nome" class="form-control" placeholder="nome do arquivo">
+                    <input type="text" name="tipo" class="form-control" placeholder="tipo do arquivo">
+                    <input type="file" name="imagem" class="form-control">
+                    <input type="submit" class="btn btn-success" value="Arquivar">
+
+                </form>
+            </div>
+        </div>
+    </div>
+    {{!-- Listagem de produtos --}}
+    <div class="container">
+        <div class="row">
+            {{#each produtos}}
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="card">
+                    <img src="../imagens/{{imagem}}">
+                    <div class="textos">
+                        <p>{{nome}}</p>
+                        <p>{{codigo}}</p>
+                    </div>
+                    <a href="/formularioEditar/{{codigo}}" class="btn btn-outline-primary">Editar</a>
+                    <a href="/excluir/{{codigo}}&{{imagem}}" class="btn btn-outline-danger">Excluir</a>
+                    <a href="/baixar/{{codigo}}&{{imagem}}" class="btn btn-outline-dark">download</a>
+                </div>
+            </div>
+            {{/each}}  
+        </div>
+    </div>
+
+
+</main>
+
