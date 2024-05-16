@@ -1,15 +1,35 @@
-//importar módulo express 
+// módulo express 
 const express = require('express');
+// fileupload
+app.use(fileupload());
+
+// Bootstrap
+app.use('/bootstrap', express.static('./node_modules/bootstrap/dist'));
+
+// Css
+app.use('/css', express.static('./css'));
+
+// imagem
+app.use('/imagens', express.static('./imagens'));
+
+// express-handlebars
+app.engine('handlebars', engine());
+app.set('view engine', 'handlebars');
+app.set('views', './views');
+
+// Manipulação de dados rota
+app.use(express.json());
+app.use(express.urlencoded({extended:false}));
 
 const cors = require('cors');
 
-// importar módulo fileupload
+// módulo fileupload
 const fileupload = require('express-fileupload');
 
-//importar módulo express-handlebars
+// módulo express-handlebars
 const { engine } = require('express-handlebars');
 
-//importar módulo mysql
+// módulo mysql
 const mysql = require('mysql2');
 
 // file systems
@@ -18,28 +38,8 @@ const fs = require('fs');
 // app
 const app = express();
 
-//Habilitar fileupload
-app.use(fileupload());
 
-// adicionar Bootstrap
-app.use('/bootstrap', express.static('./node_modules/bootstrap/dist'));
-
-// adicionar Css
-app.use('/css', express.static('./css'));
-
-// referenciar imagem
-app.use('/imagens', express.static('./imagens'));
-
-//Configuração do express-handlebars
-app.engine('handlebars', engine());
-app.set('view engine', 'handlebars');
-app.set('views', './views');
-
-// Manipulação de dados via rota
-app.use(express.json());
-app.use(express.urlencoded({extended:false}));
-
-//Configuração de conexão
+// conexão
 const conexao = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -47,7 +47,7 @@ const conexao = mysql.createConnection({
     database: 'projeto2'
 });
 
-//teste de conexão
+//teste conexão
 conexao.connect(function(erro) {
     if(erro) throw erro;
     console.log('Conectado ao banco de dados');
@@ -93,6 +93,16 @@ app.get('/excluir/:codigo&:imagem', function(req, res){
     });
     res.redirect('/');
 });
+// rota para baixar
+app.use(cors());
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/index.html');
+});
+
+app.get("/download", (req, res) =>{
+    res.download(__dirname + "/imagens");
+})
+
 
 
 //rota para editar
@@ -104,15 +114,6 @@ app.get('/formularioEditar/:codigo', function(req,res){
     });
 });
 
-// rota para baixar
-app.use(cors());
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html');
-});
-
-app.get("/download", (req, res) =>{
-    res.download(__dirname + "/imagens");
-})
 
 // Servidor
 app.listen(8080);
