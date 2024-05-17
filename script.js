@@ -17,7 +17,7 @@ app.engine('handlebars', engine());
 app.set('view engine', 'handlebars');
 app.set('views', './views');
 
-// Manipulação de dados rota
+// Manipulação dos dados 
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 
