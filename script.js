@@ -64,7 +64,7 @@ app.get('/', function(req, res){
 
 });
 
-//Rota de Cadastro
+//Rota de registro
 app.post('/registrar', function(req, res){
     let nome = req.body.nome;
     let imagem = req.files.imagem.name;
