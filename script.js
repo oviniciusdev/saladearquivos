@@ -55,11 +55,11 @@ conexao.connect(function(erro) {
 
 //Rota Principal
 app.get('/', function(req, res){
-    let sql = 'SELECT * FROM produtos';
+    let sql = 'SELECT * FROM arquivos';
 
     // Executar comando sql
     conexao.query(sql, function(erro, retorno){
-        res.render('formulario', {produtos:retorno});
+        res.render('formulario', {arquivos:retorno});
     });
 
 });
@@ -69,7 +69,7 @@ app.post('/registrar', function(req, res){
     let nome = req.body.nome;
     let imagem = req.files.imagem.name;
 
-    let sql = `INSERT INTO produtos(nome, imagem) VALUES('${nome}','${imagem}')`;
+    let sql = `INSERT INTO arquivos(nome, imagem) VALUES('${nome}','${imagem}')`;
     conexao.query(sql, function(erro, retorno){
         
         if(erro) throw erro;
@@ -83,7 +83,7 @@ app.post('/registrar', function(req, res){
 
 //rota para remover
 app.get('/excluir/:codigo&:imagem', function(req, res){
-    let sql = `DELETE FROM produtos WHERE codigo = ${req.params.codigo}`;
+    let sql = `DELETE FROM arquivos WHERE codigo = ${req.params.codigo}`;
     conexao.query(sql, function(erro, retorno){
         if(erro) throw erro;
         
@@ -107,7 +107,7 @@ app.get("/download", (req, res) =>{
 
 //rota para editar
 app.get('/formularioEditar/:codigo', function(req,res){
-    let sql = `SELECT * FROM produtos WHERE codigo = ${req.params.codigo}`;
+    let sql = `SELECT * FROM arquivos WHERE codigo = ${req.params.codigo}`;
     conexao.query(sql, function(erro,retorno){
         if(erro) throw erro;
         res.render('formularioEditar', {produto:retorno[0]});
