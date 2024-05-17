@@ -96,7 +96,7 @@ app.get('/excluir/:codigo&:imagem', function(req, res){
 // rota para baixar
 app.use(cors());
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html');
+    res.sendFile(__dirname + '/');
 });
 
 app.get("/download", (req, res) =>{
