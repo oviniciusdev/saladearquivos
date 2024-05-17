@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-6 offset-3">
                 <form action="/editar" method="post" enctype="multipart/form-data">
-                <img src="../imagens/{{produto.imagem}}">
+                <img src="../imagens/{{arquivo.imagem}}">
                     <input type="hidden" name="codigo" value="{{produto.codigo}}">
                     <input type="text" name="nome" value="{{produto.nome}}" class="form-control" placeholder="nome do arquivo">
                     <input type="text" name="tipo" value="{{produto.tipo}}" class="form-control" placeholder="tipo do arquivo">
